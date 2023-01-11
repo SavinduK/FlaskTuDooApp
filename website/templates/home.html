@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block css %}
+<link rel="stylesheet"  href={{ url_for('static',filename='css/style.css') }}>
+<script src={{ url_for('static',filename='lib/jquery.min.js') }}></script>
+{% endblock %}
+{% block title %}  Home  {% endblock %}
+{% block content %}
+
+
+<h3 align="center"> {{user_name}}</h3>
+<div class="add-task">
+<div id="win"></div> 
+<button><a href="/add-task">Add New Task</a></button>
+</div>
+
+
+<script type="text/javascript">
+    function send(id) {
+        $.ajax({
+            url: "/delete-task/"+id,
+            type: "GET",
+            success: function(res) {
+                console.log(res);
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
+
+    window.setInterval(function (){
+        $.ajax({
+            url: "/refresh-home",
+            type: "GET",
+            success: function(res) {
+                console.log(res);
+                refresh(res)
+            }
+        });
+    },500)
+       
+    function refresh(res){
+        document.getElementById("win").innerHTML = ""
+        //console.log(res['data'])
+        for( task in res['data']){
+            //console.log(res['data'][task])
+            document.getElementById("win").innerHTML += `
+            <div>
+                <h3><a href="/task/${res['data'][task][0]}"><u>${res['data'][task][1]}</a></u></h3> 
+                <button onclick="send(${res['data'][task][0]})">Delete</button> 
+                <button>Completed</button>
+                <p>To Do : ${res['data'][task][2]}</p>     
+            </div>
+            `
+        }}
+
+</script>
+
+{% endblock %}
+{% block js %}<script src={{ url_for('static',filename='lib/jquery.min.js') }}></script>{% endblock %}

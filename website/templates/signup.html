@@ -1,0 +1,20 @@
+{% extends "base.html" %} {% block title %}Sign-In{% endblock %} {% block css %}{% endblock %} {% block content %}
+<form method="POST">
+    <h3 align="center">Sign-In</h>
+        <div class="form-group">
+            <br>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Enter Username" />
+            <br>
+            <label for="password">Password</label>
+            <input type="password" id="password1" name="password1" class="form-control" placeholder="Enter Password" />
+            <br>
+            <label for="password">Password Again</label>
+            <input type="password" id="password2" name="password2" class="form-control" placeholder="Enter Password Again" />
+            <br>
+            <div align="center">
+                <button class="btn btn-lg btn-success" type="submit">Sign In</button>
+            </div>
+        </div>
+</form>
+{% endblock %} {% block js %}{% endblock %}
